@@ -13,5 +13,6 @@ Entrada A4 está reservada para seletor de canais (0 a 11, não configurado como
 
 A fazer:
 
-Implementar inversão da leitura dos potenciômetros a partir de click no joystick (push button). [Decidir se inversão afetara só sliders ou todos os pots.]
+Implementar inversão da leitura dos potenciômetros a partir de click no joystick (push button).
+  ↳Excluir pots A1 e A2 (além do bend), pois a ideia é implementar essa função só para meus sliders.
 
