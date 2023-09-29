@@ -14,6 +14,7 @@
 //========= A1~3 => Normais
 //========= A4   => Canais
 //========= A5   => Mux
+//========= 13   => Push button inversor
 
 
 MIDI_CREATE_DEFAULT_INSTANCE();
@@ -129,9 +130,11 @@ Pot MPO8(M1, 7, 1, 26, 1);
 Pot *MUXPOTS[]{ &MPO1, &MPO2, &MPO3, &MPO4, &MPO5, &MPO6, &MPO7, &MPO8 };
 //*******************************************************************
 
+bool _invertido;
 
 void setup() {
   MIDI.begin(MIDI_CHANNEL_OFF);
+  pinMode(13, INPUT_PULLUP);
 }
 
 void loop() {
@@ -139,6 +142,12 @@ void loop() {
   if (NUMBER_POTS != 0) updatePots();
   if (NUMBER_MUX_BUTTONS != 0) updateMuxButtons();
   if (NUMBER_MUX_POTS != 0) updateMuxPots();
+
+  if (digitalRead(13)==LOW) 
+    {
+      _invertido!=_invertido;
+      delay(500);
+    }
 }
 
 
@@ -230,6 +239,8 @@ void updateMuxButtons() {
 //========= A1~3 => Normais
 //========= A4   => Canais
 //========= A5   => Mux
+//========= 13   => Push button inversor
+
 void updatePots() {
   for (int i = 0; i < NUMBER_POTS; i = i + 1) {
     int chan = 1 + int(analogRead(A4) / 85.25);  //========== O canal será dado pelo seletor no A4.
@@ -245,6 +256,7 @@ void updatePots() {
     } else  //===================== O resto é controlador normal, usando o canal dado pelo A4
     {
       byte potmessage = POTS[i]->getValue();
+      if (_invertido && i>2){potmessage =127-potmessage;} //============== Inverter
       if (potmessage != 255) MIDI.sendControlChange(POTS[i]->Pcontrol, potmessage, chan);  //POTS[i]->Pchannel);
     }
   }
@@ -256,6 +268,7 @@ void updateMuxPots() {
 
     MUXPOTS[i]->muxUpdate();
     byte potmessage = MUXPOTS[i]->getValue();
+    if (_invertido){potmessage=127-potmessage;} //============== Inverter
     if (potmessage != 255) { MIDI.sendControlChange(MUXPOTS[i]->Pcontrol, potmessage, chan); }  //MUXPOTS[i]->Pchannel);
   }
 }
