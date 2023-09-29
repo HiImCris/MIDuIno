@@ -232,7 +232,7 @@ void updateMuxButtons() {
 //========= A5   => Mux
 void updatePots() {
   for (int i = 0; i < NUMBER_POTS; i = i + 1) {
-    int chan = 1 + int(analogRead(A4) / 64);  //========== O canal será dado pelo seletor no A4.
+    int chan = 1 + int(analogRead(A4) / 85.25);  //========== O canal será dado pelo seletor no A4.
 
     if (i == 0)  //================================ A0 será o bend.
     {
@@ -252,7 +252,7 @@ void updatePots() {
 //***********************************************************************
 void updateMuxPots() {
   for (int i = 0; i < NUMBER_MUX_POTS; i = i + 1) {
-    int chan = 1 + int(analogRead(A4) / 64);  //========== O canal será dado pelo seletor no A4.
+    int chan = 1 + int(analogRead(A4) / 85.25);  //========== O canal será dado pelo seletor no A4.
 
     MUXPOTS[i]->muxUpdate();
     byte potmessage = MUXPOTS[i]->getValue();
