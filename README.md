@@ -10,7 +10,7 @@ Entrada A0 está reservada para pitch bend, já que bend não é um CC. Função
 
 Entrada A4 está reservada para seletor de canais (1 a 12, não configurado como pot). Funções updatePots() e updateMuxPots() alteradas de acordo (analogRead(A4) definindo canal em vez de código fixo), funções restantes ignoradas.
 
-Entrada digital 13 reservada para botão que alterna valor invertido para sliders (POTS[>2] && MUXPOTS). setup(), loop(), updatePots() e updateMuxPots() alterados de acordo.
+Entrada digital 13 reservada para botão que alterna valor invertido para sliders (POTS[>2] && MUXPOTS). setup(), loop(), updatePots() e updateMuxPots() alterados de acordo. Bool "_invertido" declarado.
 
 A fazer:
 
