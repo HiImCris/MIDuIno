@@ -2,6 +2,8 @@
 
 Controlador MIDI baseado no código de https://github.com/NotesAndVolts
 
+Requerimento: Arduino MIDI Library https://github.com/FortySevenEffects/arduino_midi_library/releases/tag/4.2
+
 Alterações feitas:
 
 Configurado para 3 pots, 1 mux e 8 muxpots.
