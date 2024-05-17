@@ -3,16 +3,20 @@
 Controlador MIDI baseado no código de https://github.com/NotesAndVolts
 
 Alterações feitas:
+Configurado para 3 pots, 1 mux e 8 muxpots.
+Entrada A5 está reservada para seletor de canais (1 a 12). Funções updatePots() e updateMuxPots() alteradas de acordo (analogRead(A5) definindo canal em vez de código fixo), funções restantes ignoradas.
 
-Configurado para 4 pots, 1 mux e 8 muxpots.
+Hardware:
+9 sliders, 2 knobs, 1 chave seletora, um botão chave seletora
 
-Entrada A0 está reservada para pitch bend, já que bend não é um CC. Função updatePots() alterada de acordo (pitch bend acionado via eixo Y de joystick analógico).
+Chave seletora: contatos ligados via resistores, funciona como potenciômetro de posições fixas. Serve para configurar canal.
+Botão chave seletora: switch de duas posições, recebe um par de inputs e conecta a um de dois pares de output. Deveria servir como inversor de sliders.
 
-Entrada A4 está reservada para seletor de canais (1 a 12, não configurado como pot). Funções updatePots() e updateMuxPots() alteradas de acordo (analogRead(A4) definindo canal em vez de código fixo), funções restantes ignoradas.
+Problemas:
+Leituras aleatórias, principalmente quando o botão é pressionado. Dificulta até mesmo o monitoramento dos valores.
+Leituras inconsistentes.
+Botão não inverte a leitura dos sliders, mas aparentemente transforma a curva numa parábola. O motivo disso é porque eu sou burro e ainda não entendi como potenciômetros funcionam. Também parece afetar knobs, o que não deveria acontecer, pois eles nem estão conectados ao botão. 
 
-Entrada digital 13 reservada para botão que alterna valor invertido para sliders (POTS[>2] e MUXPOTS). setup(), loop(), updatePots() e updateMuxPots() alterados de acordo. Bool "_invertido" declarado.
-
-A fazer:
-
-Testar inversão dos sliders.
+Protótipo:
+![alt text](https://github.com/HiImCris/MIDuIno/blob/main/Prototipo.jpg?raw=true)
 
