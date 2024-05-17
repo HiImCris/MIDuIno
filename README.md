@@ -14,9 +14,13 @@ Botão chave seletora: switch de duas posições, recebe um par de inputs e cone
 
 Problemas:
 Leituras aleatórias, principalmente quando o botão é pressionado. Dificulta até mesmo o monitoramento dos valores.
+
 Leituras inconsistentes.
+
 Botão não inverte a leitura dos sliders, mas aparentemente transforma a curva numa parábola. O motivo disso é porque eu sou burro e ainda não entendi como potenciômetros funcionam. (Ou meu multímetro só serve para medir potenciômetro no Mundo das Ideias, não aqueles que serão usados em circuitos.)
+
 Leitura do seletor de canais inconsistente. Talvez programar valores diferentes resolva o problema.
+
 
 Protótipo:
 ![alt text](https://github.com/HiImCris/MIDuIno/blob/main/Prototipo.jpg?raw=true)
