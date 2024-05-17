@@ -10,12 +10,7 @@
   Version 1.2 **Arduino UNO ONLY!**
   Modificado por Cris Oliveira
  *************************************************************/
-//************************************************************
-//========= A0   => Bend
-//========= A1~3 => Normais
-//========= A4   => Canais
-//========= A5   => Mux
-//========= 13   => Push button inversor
+
 
 
 MIDI_CREATE_DEFAULT_INSTANCE();
