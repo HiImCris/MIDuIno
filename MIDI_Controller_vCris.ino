@@ -8,6 +8,7 @@
   www.notesandvolts.com
 
   Version 1.2 **Arduino UNO ONLY!**
+  Modificado por Cris Oliveira
  *************************************************************/
 //************************************************************
 //========= A0   => Bend
@@ -25,11 +26,11 @@ MIDI_CREATE_DEFAULT_INSTANCE();
 //---How many buttons are connected directly to pins?---------
 byte NUMBER_BUTTONS = 0;
 //---How many potentiometers are connected directly to pins?--
-byte NUMBER_POTS = 5;
+byte NUMBER_POTS = 3;
 //---How many buttons are connected to a multiplexer?---------
 byte NUMBER_MUX_BUTTONS = 0;
 //---How many potentiometers are connected to a multiplexer?--
-byte NUMBER_MUX_POTS = 8;
+byte NUMBER_MUX_POTS = 8; // 8;
 //************************************************************
 
 //***ANY MULTIPLEXERS? (74HC4067)************************************
@@ -38,8 +39,7 @@ byte NUMBER_MUX_POTS = 8;
 //*******************************************************************
 //Mux NAME (OUTPUT PIN, , How Many Mux Pins?(8 or 16) , Is It Analog?);
 
-
-Mux M1(A5, 8, true);  //Digital multiplexer on Arduino pin 10
+Mux M1(A3, 8, true);  //Digital multiplexer on Arduino pin 10
 //Mux M2(A5, 8, true); //Analog multiplexer on Arduino analog pin A0
 //*******************************************************************
 
@@ -48,15 +48,14 @@ Mux M1(A5, 8, true);  //Digital multiplexer on Arduino pin 10
 //Pot (Pin Number, Command, CC Control, Channel Number)
 //**Command parameter is for future use**
 
-Pot PO1(A0, 1, 1, 1);
-Pot PO2(A1, 1, 16, 1);
-Pot PO3(A2, 1, 17, 1);
-Pot PO4(A3, 1, 18, 1);
-//Pot PO5(A4, 0, 18, 1);
+//Pot PO1(A0, 1, 1, 1);
+Pot PO1(A0, 1, 16, 1);
+Pot PO2(A1, 1, 17, 1);
+Pot PO3(A2, 1, 12, 1);
 //Pot PO6(A5, 0, 19, 1);
 //*******************************************************************
 //Add pots used to array below like this->  Pot *POTS[] {&PO1, &PO2, &PO3, &PO4, &PO5, &PO6};
-Pot *POTS[]{ &PO1, &PO2, &PO3, &PO4 };
+Pot *POTS[]{ &PO1, &PO2, &PO3};
 //*******************************************************************
 
 
@@ -82,14 +81,6 @@ Button *BUTTONS[]{};
 //Button::Button(Mux mux, byte muxpin, byte command, byte value, byte channel, byte debounce)
 //** Command parameter 0=NOTE  1=CC  2=Toggle CC **
 
-//Button MBU1(M1, 0, 0, 70, 1, 5);
-//Button MBU2(M1, 1, 1, 71, 1, 5);
-//Button MBU3(M1, 2, 2, 72, 1, 5);
-//Button MBU4(M1, 3, 0, 73, 1, 5);
-//Button MBU5(M1, 4, 0, 74, 1, 5);
-//Button MBU6(M1, 5, 0, 75, 1, 5);
-//Button MBU7(M1, 6, 0, 76, 1, 5);
-//Button MBU8(M1, 7, 0, 77, 1, 5);
 //Button MBU9(M1, 8, 0, 78, 1, 5);
 //Button MBU10(M1, 9, 0, 79, 1, 5);
 //Button MBU11(M1, 10, 0, 80, 1, 5);
@@ -100,7 +91,7 @@ Button *BUTTONS[]{};
 //Button MBU16(M1, 15, 0, 85, 1, 5);
 //*******************************************************************
 ////Add multiplexed buttons used to array below like this->  Button *MUXBUTTONS[] {&MBU1, &MBU2, &MBU3, &MBU4, &MBU5, &MBU6.....};
-Button *MUXBUTTONS[]{};
+Button *MUXBUTTONS[]{};//{&MBU1, &MBU2,&MBU3,&MBU4,&MBU5,&MBU6,&MBU7,&MBU8};
 
 //*******************************************************************
 
@@ -109,14 +100,16 @@ Button *MUXBUTTONS[]{};
 //Pot::Pot(Mux mux, byte muxpin, byte command, byte control, byte channel)
 //**Command parameter is for future use**
 
-Pot MPO1(M1, 0, 1, 19, 1);
-Pot MPO2(M1, 1, 1, 20, 1);
-Pot MPO3(M1, 2, 1, 21, 1);
-Pot MPO4(M1, 3, 1, 22, 1);
-Pot MPO5(M1, 4, 1, 23, 1);
-Pot MPO6(M1, 5, 1, 24, 1);
-Pot MPO7(M1, 6, 1, 25, 1);
-Pot MPO8(M1, 7, 1, 26, 1);
+
+Pot MPO1(M1, 0, 1, 12, 1);
+Pot MPO2(M1, 1, 1, 13, 1);
+Pot MPO3(M1, 2, 1, 14, 1);
+Pot MPO4(M1, 3, 1, 15, 1);
+Pot MPO5(M1, 4, 1, 16, 1);
+Pot MPO6(M1, 5, 1, 17, 1);
+Pot MPO7(M1, 6, 1, 18, 1);
+Pot MPO8(M1, 7, 1, 19, 1); 
+
 //Pot MPO9(M2, 8, 0, 50, 1);
 //Pot MPO10(M2, 9, 0, 55, 2);
 //Pot MPO11(M2, 10, 0, 50, 1);
@@ -134,7 +127,6 @@ bool _invertido;
 
 void setup() {
   MIDI.begin(MIDI_CHANNEL_OFF);
-  pinMode(13, INPUT_PULLUP);
 }
 
 void loop() {
@@ -142,12 +134,6 @@ void loop() {
   if (NUMBER_POTS != 0) updatePots();
   if (NUMBER_MUX_BUTTONS != 0) updateMuxButtons();
   if (NUMBER_MUX_POTS != 0) updateMuxPots();
-
-  if (digitalRead(13)==LOW) 
-    {
-      _invertido!=_invertido;
-      delay(500);
-    }
 }
 
 
@@ -235,28 +221,15 @@ void updateMuxButtons() {
   }
 }
 //***********************************************************************
-//========= A0   => Bend
-//========= A1~3 => Normais
-//========= A4   => Canais
-//========= A5   => Mux
-//========= 13   => Push button inversor
+//========= A0~2 => Normais
+//========= A3   => Mux
+//========= A5   => Canais
 
 void updatePots() {
   for (int i = 0; i < NUMBER_POTS; i = i + 1) {
-    int chan = 1 + int(analogRead(A4) / 85.25);  //========== O canal será dado pelo seletor no A4.
-
-    if (i == 0)  //================================ A0 será o bend.
+    int chan = 1 + int((analogRead(A5)+5.29) / 85.33);  //========== O canal será dado pelo seletor no A5.
     {
       byte potmessage = POTS[i]->getValue();
-
-      int bendmessage = constrain(map(potmessage, 0, 127, MIDI_PITCHBEND_MIN, MIDI_PITCHBEND_MAX), MIDI_PITCHBEND_MIN, MIDI_PITCHBEND_MAX);
-      if (potmessage != 255) {
-        MIDI.sendPitchBend(bendmessage, chan);
-      }
-    } else  //===================== O resto é controlador normal, usando o canal dado pelo A4
-    {
-      byte potmessage = POTS[i]->getValue();
-      if (_invertido && i>2){potmessage =127-potmessage;} //============== Inverter
       if (potmessage != 255) MIDI.sendControlChange(POTS[i]->Pcontrol, potmessage, chan);  //POTS[i]->Pchannel);
     }
   }
@@ -264,11 +237,10 @@ void updatePots() {
 //***********************************************************************
 void updateMuxPots() {
   for (int i = 0; i < NUMBER_MUX_POTS; i = i + 1) {
-    int chan = 1 + int(analogRead(A4) / 85.25);  //========== O canal será dado pelo seletor no A4.
+    int chan = 1 + int((analogRead(A5)+5.29) / 85.33);  //========== O canal será dado pelo seletor no A5.
 
     MUXPOTS[i]->muxUpdate();
     byte potmessage = MUXPOTS[i]->getValue();
-    if (_invertido){potmessage=127-potmessage;} //============== Inverter
     if (potmessage != 255) { MIDI.sendControlChange(MUXPOTS[i]->Pcontrol, potmessage, chan); }  //MUXPOTS[i]->Pchannel);
   }
 }
