@@ -31,3 +31,8 @@ Leitura do seletor de canais inconsistente. Talvez programar valores diferentes 
 Protótipo:
 ![alt text](https://github.com/HiImCris/MIDuIno/blob/main/Prototipo.jpg?raw=true)
 
+
+Avaliação do projeto até agora:
+
+Eu poderia estar praticando piano, canto, teoria, o escambau, mas gastei tempo com essa joça... :-(
+
