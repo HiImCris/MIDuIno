@@ -13,7 +13,7 @@ Entrada A5 está reservada para seletor de canais (1 a 12). Funções updatePots
 
 Hardware:
 
-9 sliders, 2 knobs, 1 chave seletora, um botão chave seletora
+9 sliders, 1 multiplexador, 2 knobs, 1 chave seletora, um botão chave seletora
 
 Chave seletora: contatos ligados via resistores, funciona como potenciômetro de posições fixas. Serve para configurar canal.
 Botão chave seletora: switch de duas posições, recebe um par de inputs e conecta a um de dois pares de output. Deveria servir como inversor de sliders.
